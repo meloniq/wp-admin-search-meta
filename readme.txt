@@ -5,8 +5,8 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: wp-admin, admin, backend, search, post meta, postmeta, custom fields
 Requires at least: 3.3
-Tested up to: 3.5.1
-Stable tag: 0.1
+Tested up to: 4.1
+Stable tag: 0.2
 
 Enables searching post meta fields on admin pages.
 
@@ -23,6 +23,9 @@ Enables searching post meta fields on admin pages.
 
 == Changelog ==
 
+= 0.2 =
+* Fixed issue with displaying multiple times the same post
+
 = 0.1 =
 * Initial release
 
@@ -34,7 +37,7 @@ Enables searching post meta fields on admin pages.
 
 = It does not work, what to do? =
 
-Report it with details on <a href="http://wordpress.org/support/plugin/wp-admin-search-meta">support forum</a>.
+Report it with details on [support forum](http://wordpress.org/support/plugin/wp-admin-search-meta).
 
 
 == Screenshots ==
