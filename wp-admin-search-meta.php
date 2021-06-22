@@ -5,9 +5,9 @@ Plugin URI: https://wordpress.org/plugins/wp-admin-search-meta/
 Description: Enables searching post meta fields on admin pages.
 
 Author: MELONIQ.NET
-Author URI: http://blog.meloniq.net/
+Author URI: https://blog.meloniq.net/
 
-Version: 0.2
+Version: 0.3
 Text Domain: wp-admin-search-meta
 License: GPLv2 or later
 */
@@ -24,7 +24,7 @@ if ( ! function_exists( 'add_action' ) ) {
 /**
  * Plugin version and textdomain constants.
  */
-define( 'WPASM_VERSION', '0.2' );
+define( 'WPASM_VERSION', '0.3' );
 define( 'WPASM_TD', 'wp-admin-search-meta' );
 
 

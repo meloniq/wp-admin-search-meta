@@ -1,12 +1,12 @@
 === WP-Admin Search Post Meta ===
 Contributors: meloniq
-Donate link: http://blog.meloniq.net/donate/
+Donate link: https://blog.meloniq.net/donate/
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: wp-admin, admin, backend, search, post meta, postmeta, custom fields
-Requires at least: 3.3
-Tested up to: 4.1
-Stable tag: 0.2
+Requires at least: 4.9
+Tested up to: 5.7
+Stable tag: 0.3
 
 Enables searching post meta fields on admin pages.
 
@@ -23,6 +23,9 @@ Enables searching post meta fields on admin pages.
 
 == Changelog ==
 
+= 0.3 =
+* Fixed compatibility with version 4.9 and higher
+
 = 0.2 =
 * Fixed issue with displaying multiple times the same post
 
@@ -37,7 +40,7 @@ Enables searching post meta fields on admin pages.
 
 = It does not work, what to do? =
 
-Report it with details on [support forum](http://wordpress.org/support/plugin/wp-admin-search-meta).
+Report it with details on [support forum](https://wordpress.org/support/plugin/wp-admin-search-meta/).
 
 
 == Screenshots ==

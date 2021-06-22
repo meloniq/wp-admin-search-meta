@@ -20,9 +20,9 @@ class WPASM_Search {
 	 * @return void
 	 */
 	public static function add() {
-		add_filter( 'posts_join', array( __CLASS__, 'posts_join' ) );
-		add_filter( 'posts_where', array( __CLASS__, 'posts_where' ) );
-		add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ) );
+		add_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 11, 2 );
+		add_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 11, 2 );
+		add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 11, 2 );
 	}
 
 	/**
@@ -31,19 +31,20 @@ class WPASM_Search {
 	 * @return void
 	 */
 	public static function remove() {
-		remove_filter( 'posts_join', array( __CLASS__, 'posts_join' ) );
-		remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ) );
-		remove_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ) );
+		remove_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 11 );
+		remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 11 );
+		remove_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 11 );
 	}
 
 	/**
 	 * Constructs JOIN part of query.
 	 *
-	 * @param string $join
+	 * @param string   $join  The JOIN clause of the query.
+	 * @param WP_Query $query The WP_Query instance (passed by reference).
 	 *
 	 * @return string
 	 */
-	public static function posts_join( $join ) {
+	public static function posts_join( $join, $query ) {
 		global $wpdb;
 
 		if ( ! self::_is_active() ) {
@@ -58,19 +59,21 @@ class WPASM_Search {
 	/**
 	 * Constructs WHERE part of query.
 	 *
-	 * @param string $where
+	 * @param string   $where The WHERE clause of the query.
+	 * @param WP_Query $query The WP_Query instance (passed by reference).
 	 *
 	 * @return string
 	 */
-	public static function posts_where( $where ) {
+	public static function posts_where( $where, $query ) {
 		global $wpdb, $wp;
 
 		if ( ! self::_is_active() ) {
 			return $where;
 		}
 
-		$where = preg_replace( "/($wpdb->posts.post_title LIKE '%{$wp->query_vars['s']}%')/i", "$0 OR $wpdb->postmeta.meta_value LIKE '%{$wp->query_vars['s']}%' ", $where );
-		//$where .= " OR ( $wpdb->postmeta.meta_value LIKE '%{$wp->query_vars['s']}%' ) ";
+		$like = '%' . $wpdb->esc_like( $wp->query_vars['s'] ) . '%';
+
+		$where = str_replace( "($wpdb->posts.post_excerpt LIKE", "($wpdb->postmeta.meta_value LIKE '$like') OR ($wpdb->posts.post_excerpt LIKE", $where );
 
 		return $where;
 	}
@@ -78,11 +81,12 @@ class WPASM_Search {
 	/**
 	 * Constructs GROUP BY part of query.
 	 *
-	 * @param string $groupby
+	 * @param string   $groupby The GROUP BY clause of the query.
+	 * @param WP_Query $query   The WP_Query instance (passed by reference).
 	 *
 	 * @return string
 	 */
-	public static function posts_groupby( $groupby ) {
+	public static function posts_groupby( $groupby, $query ) {
 		global $wpdb;
 
 		if ( ! self::_is_active() ) {
