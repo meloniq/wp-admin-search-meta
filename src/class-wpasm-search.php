@@ -1,5 +1,11 @@
 <?php
 /**
+ * Handles searching post meta table.
+ *
+ * @package WPAdminSearchMeta
+ */
+
+/**
  * Handles seaching post meta table.
  */
 class WPASM_Search {
@@ -9,7 +15,7 @@ class WPASM_Search {
 	 *
 	 * @return void
 	 */
-	public static function init() {
+	public static function init(): void {
 
 		self::add();
 	}
@@ -19,7 +25,7 @@ class WPASM_Search {
 	 *
 	 * @return void
 	 */
-	public static function add() {
+	public static function add(): void {
 		add_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 11, 2 );
 		add_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 11, 2 );
 		add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 11, 2 );
@@ -30,7 +36,7 @@ class WPASM_Search {
 	 *
 	 * @return void
 	 */
-	public static function remove() {
+	public static function remove(): void {
 		remove_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 11 );
 		remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 11 );
 		remove_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 11 );
@@ -44,10 +50,10 @@ class WPASM_Search {
 	 *
 	 * @return string
 	 */
-	public static function posts_join( $join, $query ) {
+	public static function posts_join( string $join, WP_Query $query ): string { // phpcs:ignore
 		global $wpdb;
 
-		if ( ! self::_is_active() ) {
+		if ( ! self::is_active() ) {
 			return $join;
 		}
 
@@ -64,10 +70,10 @@ class WPASM_Search {
 	 *
 	 * @return string
 	 */
-	public static function posts_where( $where, $query ) {
+	public static function posts_where( string $where, WP_Query $query ): string { // phpcs:ignore
 		global $wpdb, $wp;
 
-		if ( ! self::_is_active() ) {
+		if ( ! self::is_active() ) {
 			return $where;
 		}
 
@@ -86,10 +92,10 @@ class WPASM_Search {
 	 *
 	 * @return string
 	 */
-	public static function posts_groupby( $groupby, $query ) {
+	public static function posts_groupby( string $groupby, WP_Query $query ): string { // phpcs:ignore
 		global $wpdb;
 
-		if ( ! self::_is_active() ) {
+		if ( ! self::is_active() ) {
 			return $groupby;
 		}
 
@@ -105,18 +111,18 @@ class WPASM_Search {
 	 *
 	 * @return bool
 	 */
-	protected static function _is_active() {
+	protected static function is_active(): bool {
 		global $pagenow, $wp_query;
 
 		if ( ! is_admin() ) {
 			return false;
 		}
 
-		if ( 'edit.php' != $pagenow ) {
+		if ( 'edit.php' !== $pagenow ) {
 			return false;
 		}
 
-		if ( ! isset( $_GET['s'] ) ) {
+		if ( ! isset( $_GET['s'] ) ) { // phpcs:ignore
 			return false;
 		}
 
@@ -126,5 +132,4 @@ class WPASM_Search {
 
 		return true;
 	}
-
 }

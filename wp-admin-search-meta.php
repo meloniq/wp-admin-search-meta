@@ -1,38 +1,42 @@
 <?php
-/*
-Plugin Name: WP-Admin Search Post Meta
-Plugin URI: https://wordpress.org/plugins/wp-admin-search-meta/
-Description: Enables searching post meta fields on admin pages.
-
-Author: MELONIQ.NET
-Author URI: https://blog.meloniq.net/
-
-Version: 0.3
-Text Domain: wp-admin-search-meta
-License: GPLv2 or later
-*/
-
-
 /**
- * Avoid calling file directly.
+ * Plugin Name: WP-Admin Search Post Meta
+ * Plugin URI: https://wordpress.org/plugins/wp-admin-search-meta/
+ *
+ * Description: Search WordPress admin posts by custom fields (post meta) directly from the default search.
+ * Tags: admin, search, post meta, meta fields
+ *
+ * Requires at least: 4.9
+ * Requires PHP:      7.4
+ * Version: 0.4
+ *
+ * Author: MELONIQ.NET
+ * Author URI: https://blog.meloniq.net/
+ *
+ * License: GPLv2
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * Text Domain: wp-admin-search-meta
+ *
+ * @package WPAdminSearchMeta
  */
-if ( ! function_exists( 'add_action' ) ) {
-	die( 'Whoops! You shouldn\'t be doing that.' );
-}
 
+// If this file is accessed directly, then abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 
 /**
  * Plugin version and textdomain constants.
  */
-define( 'WPASM_VERSION', '0.3' );
+define( 'WPASM_VERSION', '0.4' );
 define( 'WPASM_TD', 'wp-admin-search-meta' );
-
 
 /**
  * Include and initialize class.
  */
 if ( ! class_exists( 'WPASM_Search' ) ) {
-	require_once( dirname( __FILE__ ) . '/wpasm-class.php' );
+	require_once __DIR__ . '/src/class-wpasm-search.php';
 }
 
 WPASM_Search::init();
