@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<ruleset name="WP-Admin Search Post Meta">
+	<description>WP-Admin Search Post Meta rules for PHP_CodeSniffer</description>
+
+	<rule ref="WordPress">
+	</rule>
+</ruleset>
